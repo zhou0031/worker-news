@@ -170,4 +170,4 @@ dist
 
 .dev.vars
 .wrangler/
-.test.rest
+test.rest
