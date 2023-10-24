@@ -1,7 +1,0 @@
-
-GET http://0.0.0.0:8787/nytimes
-Authorization: O17a6lZT4gKlxnoy8OdwPNtxKjIgo+iztvdgwRfuWfg=
-
-###
-GET https://cfnews.310soft.com/nytimes
-Authorization: O17a6lZT4gKlxnoy8OdwPNtxKjIgo+iztvdgwRfuWfg=
