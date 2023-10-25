@@ -1,4 +1,5 @@
 import getNyNews  from "./nytimes";
+import getNikkeiNews from "./nikkei";
 import {error,json,Router} from 'itty-router'
 
 
@@ -13,7 +14,7 @@ async function jwtAuth(request,env){
 router
 	.all("*",jwtAuth)
 	.get("/nytimes",()=>getNyNews())
-	
+	.get("/nikkei",()=>getNikkeiNews())
 
 export default {
 	async fetch(request, env, ctx) {
