@@ -13,8 +13,8 @@ async function jwtAuth(request,env){
 
 router
 	.all("*",jwtAuth)
-	.get("/nytimes",()=>getNyNews())
-	.get("/nikkei",()=>getNikkeiNews())
+	.get("/nytimes",getNyNews)
+	.get("/nikkei",getNikkeiNews)
 
 export default {
 	async fetch(request, env, ctx) {

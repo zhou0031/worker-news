@@ -2,6 +2,8 @@ name = "news"
 main = "src/index.js"
 compatibility_date = "2023-10-16"
 
+[ai]
+binding = "AI"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
