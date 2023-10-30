@@ -13,9 +13,11 @@ async function jwtAuth(request,env){
 }
 
 async function getNews(env, ctx){
-	let news
-	news=await getNikkeiNews()
-	ctx.waitUntil(saveNews(env,ctx,news))
+	
+	const nyNews=await getNyNews()
+	const nikkeiNews=await getNikkeiNews()
+	const finalArray=[...nyNews,...nikkeiNews]
+	ctx.waitUntil(saveNews(env,ctx,finalArray))
 }
 
 router
