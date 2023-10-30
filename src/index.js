@@ -14,7 +14,7 @@ async function jwtAuth(request,env){
 
 async function getNews(env, ctx){
 	let news
-	news=await getNyNews()
+	news=await getNikkeiNews()
 	ctx.waitUntil(saveNews(env,ctx,news))
 }
 
