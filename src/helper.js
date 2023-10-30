@@ -17,7 +17,6 @@ async function saveNews(env,ctx,news){
       return new Response(JSON.stringify({"ok":true}))
       
    }catch(e){
-    console.log(e)
     return new Response(JSON.stringify({"ok":false}))
    }
   

@@ -12,13 +12,24 @@ async function jwtAuth(request,env){
 	if(token!==env.TOKEN) return error(401, "Invalid user")
 }
 
+async function getNews(env, ctx){
+	let news
+	news=await getNyNews()
+	ctx.waitUntil(saveNews(env,ctx,news))
+}
+
 router
-	.all("*",jwtAuth)
+	.all("*",jwtAuth,getNews)
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
 
 export default {
+	/*
 	async fetch(request, env, ctx) {
 		return router.handle(request,env,ctx).then(json=>saveNews(env,ctx,json)).catch(error)
+	},
+	*/
+	async scheduled(event, env, ctx) {
+		ctx.waitUntil(getNews(env,ctx))
 	},
 };
