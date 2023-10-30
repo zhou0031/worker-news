@@ -1,5 +1,6 @@
 import getNyNews  from "./nytimes";
 import getNikkeiNews from "./nikkei";
+import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
 
 
@@ -18,6 +19,6 @@ router
 
 export default {
 	async fetch(request, env, ctx) {
-		return router.handle(request,env,ctx).then(json).catch(error)
+		return router.handle(request,env,ctx).then(json=>saveNews(env,ctx,json)).catch(error)
 	},
 };
