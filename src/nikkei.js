@@ -42,7 +42,7 @@ export default async function getNikkeiNews(){
             }
 
             if(content.length>0)
-              news.push({title,content})
+              news.push({title,content,publisher:2})
             
           }catch(e){
             console.log(e)

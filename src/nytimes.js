@@ -35,7 +35,7 @@ export default async function getNyNews(){
                 content.push($(element).text())            
             });
            
-            news.push({title,content})
+            news.push({title,content,publisher:1})
           }catch(e){
             console.log(e)
           }
