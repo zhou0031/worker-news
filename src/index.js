@@ -2,7 +2,7 @@ import getNyNews  from "./nytimes";
 import getNikkeiNews from "./nikkei";
 import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
-
+import { getLatest5News } from "./helper";
 
 const router = Router()
 
@@ -20,17 +20,22 @@ async function getNews(env, ctx){
 	ctx.waitUntil(saveNews(env,ctx,finalArray))
 }
 
+async function getLatestNews(env,ctx){
+	return getLatest5News(env,ctx)
+}
+
 router
-	.all("*",jwtAuth,getNews)
+	.all("*",jwtAuth)
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
+	.get("/latestNews",getLatestNews)
 
 export default {
-	/*
+	
 	async fetch(request, env, ctx) {
-		return router.handle(request,env,ctx).then(json=>saveNews(env,ctx,json)).catch(error)
+		return router.handle(request,env,ctx).then(json).catch(error)
 	},
-	*/
+	
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(getNews(env,ctx))
 	},
