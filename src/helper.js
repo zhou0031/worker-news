@@ -7,8 +7,8 @@ async function saveNews(env,ctx,news){
             if(value===null){
                ctx.waitUntil(
                      env.DB
-                     .prepare("INSERT INTO News (news_id,title,content,publication_date,publisher) VALUES(?,?,?,?,?)")
-                     .bind(uuidv4(),item.title,item.content.toString(),new Date().toUTCString(),item.publisher)
+                     .prepare("INSERT INTO News (news_id,title,content,publication_date,photos,publisher) VALUES(?,?,?,?,?,?)")
+                     .bind(uuidv4(),item.title,item.content.toString(),new Date().toUTCString(),JSON.stringify(item.photos),item.publisher)
                      .all()           
                   )
                ctx.waitUntil(env.cache.put(item.title,JSON.stringify({timestamp:new Date().getTime()})))   

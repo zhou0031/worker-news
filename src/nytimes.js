@@ -27,15 +27,22 @@ export default async function getNyNews(){
             const $ = cheerio.load(await response.text());
             const title = $(".article-header h1").text();
             const content=[]
-          
+            const photos=[]
+      
+            /* head image */
+            const headImage=$(".article-span-photo > img").attr('src')
+            const headAlt=$(".article-span-photo > img").attr('alt')
+            photos.push({src:headImage,alt:headAlt})
+
             $('.article-paragraph').each((index, element) => {
-                
               e = cheerio.load(element)  
               if(e('img').length==0)  
-                content.push($(element).text())            
+                content.push($(element).text())
+              else
+                photos.push({src:e('img').attr('src'),alt:e('img').attr('alt')})
             });
-           
-            news.push({title,content,publisher:1})
+            
+            news.push({title,content,photos,publisher:1})
           }catch(e){
             console.log(e)
           }

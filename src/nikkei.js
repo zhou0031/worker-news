@@ -32,6 +32,8 @@ export default async function getNikkeiNews(){
             const $ = cheerio.load(await response.text());
             const title = $("h2.style01").text();
             const content=[]
+            const photos=[]
+
             //no pagination bar
             if(!$('.newsText div').hasClass('pagenavbar')){
               $('.newsText > p').each((index, element) => {
@@ -39,10 +41,19 @@ export default async function getNikkeiNews(){
                   if(e('a').length==0 && e('div').length==0)
                     content.push($(element).text().trim())            
               });
+
+              $(".newsText table").each((index,element)=>{
+                e = cheerio.load(element) 
+                if(e('td img').length>0){
+                  const relativePath=e('td img').attr('src')
+                  const absoluteUrl=new URL(relativePath,baseUrl).href
+                  photos.push({src:absoluteUrl,alt:e('td > span').text().trim()})
+                }
+              })
             }
 
             if(content.length>0)
-              news.push({title,content,publisher:2})
+              news.push({title,content,photos,publisher:2})
             
           }catch(e){
             console.log(e)
