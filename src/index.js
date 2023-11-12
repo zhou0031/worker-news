@@ -1,5 +1,6 @@
 import getNyNews  from "./nytimes";
 import getNikkeiNews from "./nikkei";
+import getBbcNews from "./bbc";
 import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
 import { getLatest5News } from "./helper";
@@ -15,8 +16,9 @@ async function jwtAuth(request,env){
 async function getNews(env, ctx){
 	
 	const nyNews=await getNyNews()
-	const nikkeiNews=await getNikkeiNews()
-	const finalArray=[...nyNews,...nikkeiNews]
+	//const nikkeiNews=await getNikkeiNews()
+	const bbcNews=await getBbcNews()
+	const finalArray=[...nyNews,...bbcNews]
 	ctx.waitUntil(saveNews(env,ctx,finalArray))
 }
 
@@ -28,6 +30,7 @@ router
 	.all("*",jwtAuth)
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
+	.get("/bbc",getBbcNews)
 	.get("/latestNews",getLatestNews)
 
 export default {
