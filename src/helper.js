@@ -22,9 +22,9 @@ async function saveNews(env,ctx,news){
   
 }
 
-async function getLatest5News(req,env,ctx){
+async function getLatest30News(req,env,ctx){
    try{
-      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date DESC LIMIT 5").all()
+      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date DESC LIMIT 30").all()
       return news
    }catch(e){
       console.log(e)
@@ -33,4 +33,4 @@ async function getLatest5News(req,env,ctx){
 }
 
 
-export {saveNews,getLatest5News}
+export {saveNews,getLatest30News}

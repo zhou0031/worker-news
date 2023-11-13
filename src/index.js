@@ -3,7 +3,7 @@ import getNikkeiNews from "./nikkei";
 import getBbcNews from "./bbc";
 import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
-import { getLatest5News } from "./helper";
+import { getLatest30News } from "./helper";
 
 const router = Router()
 
@@ -23,7 +23,7 @@ async function getNews(env, ctx){
 }
 
 async function getLatestNews(env,ctx){
-	return getLatest5News(env,ctx)
+	return getLatest30News(env,ctx)
 }
 
 router
