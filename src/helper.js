@@ -24,7 +24,7 @@ async function saveNews(env,ctx,news){
 
 async function getLatest30News(req,env,ctx){
    try{
-      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date DESC LIMIT 30").all()
+      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date ASC LIMIT 30").all()
       return news
    }catch(e){
       console.log(e)
