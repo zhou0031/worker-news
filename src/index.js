@@ -18,7 +18,7 @@ async function getNews(env, ctx){
 	const nyNews=await getNyNews()
 	//const nikkeiNews=await getNikkeiNews()
 	const bbcNews=await getBbcNews()
-	const finalArray=[...bbcNews,...nyNews]
+	const finalArray=[...nyNews,...bbcNews]
 	ctx.waitUntil(saveNews(env,ctx,finalArray))
 }
 

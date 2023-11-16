@@ -30,6 +30,7 @@ export default async function getBbcNews(){
             }});
             const $ = cheerio.load(await response.text());
             const title = $("div.bbc-1151pbn").text();
+            const publication_date=$("main time").attr('datetime')
             const content=[]
             const photos=[]    
             
@@ -44,14 +45,14 @@ export default async function getBbcNews(){
               photos.push({src:src,alt:alt})
             })
             
-            news.push({title,content,photos,publisher:3})
+            news.push({title,content,publication_date,photos,publisher:3})
             
           }catch(e){
             console.log(e)
           }
         }
         
-        return news     
+        return news   
         
         } catch (error) {
             console.log(error)

@@ -8,10 +8,10 @@ async function saveNews(env,ctx,news){
                ctx.waitUntil(
                      env.DB
                      .prepare("INSERT INTO News (news_id,title,content,publication_date,photos,publisher) VALUES(?,?,?,?,?,?)")
-                     .bind(uuidv4(),item.title,item.content.toString(),new Date().getTime(),JSON.stringify(item.photos),item.publisher)
+                     .bind(uuidv4(),item.title,item.content.toString(),item.publication_date,JSON.stringify(item.photos),item.publisher)
                      .all()           
                   )
-               ctx.waitUntil(env.cache.put(item.title,JSON.stringify({timestamp:new Date().getTime()})))   
+               ctx.waitUntil(env.cache.put(item.title,JSON.stringify({timestamp:item.publication_date})))   
             }
          }
       return new Response(JSON.stringify({"ok":true}))
@@ -24,7 +24,7 @@ async function saveNews(env,ctx,news){
 
 async function getLatest30News(req,env,ctx){
    try{
-      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date ASC LIMIT 30").all()
+      const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date DESC LIMIT 30").all()
       return news
    }catch(e){
       console.log(e)

@@ -26,6 +26,7 @@ export default async function getNyNews(){
             const response = await fetch(links[link], { method: "GET" });
             const $ = cheerio.load(await response.text());
             const title = $(".article-header h1").text();
+            const publication_date=$(".article-header time").attr('datetime');
             const content=[]
             const photos=[]
       
@@ -42,7 +43,7 @@ export default async function getNyNews(){
                 photos.push({src:e('img').attr('src'),alt:e('img').attr('alt')})
             });
             
-            news.push({title,content,photos,publisher:1})
+            news.push({title, content, publication_date, photos, publisher:1})
           }catch(e){
             console.log(e)
           }

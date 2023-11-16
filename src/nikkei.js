@@ -1,5 +1,5 @@
 const baseUrl="https://cn.nikkei.com/"
-const linkClassSelector = '.column-1 dt > a'; 
+const linkClassSelector = '.column-1 .newsStyle01 .newsContent01 dt > a'; 
 const cheerio = require('cheerio');
 
 export default async function getNikkeiNews(){  
@@ -31,6 +31,7 @@ export default async function getNikkeiNews(){
             } });
             const $ = cheerio.load(await response.text());
             const title = $("h2.style01").text();
+            const publication_date=$(".newsContent > .time").text()
             const content=[]
             const photos=[]
 
@@ -53,14 +54,14 @@ export default async function getNikkeiNews(){
             }
 
             if(content.length>0)
-              news.push({title,content,photos,publisher:2})
+              news.push({title,content,publication_date,photos,publisher:2})
             
           }catch(e){
             console.log(e)
           }
         }
         
-        return news     
+        return news   
         
         } catch (error) {
             console.log(error)
