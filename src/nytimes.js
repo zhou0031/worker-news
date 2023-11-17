@@ -1,5 +1,6 @@
 const baseUrl="https://cn.nytimes.com/"
 const linkClassSelector = '.regularSummaryHeadline > a'; 
+const headlineSelector = ['.leadHeadline > a','.photoWrapper > a']
 const cheerio = require('cheerio');
 
 export default async function getNyNews(){  
@@ -19,7 +20,15 @@ export default async function getNyNews(){
             links.push(absoluteUrl);
           }
         });
-       
+        
+       for(const l of headlineSelector){
+        const link=$(l).attr('href')
+        const absoluteUrl = new URL(link, baseUrl).href;
+        links.push(absoluteUrl);
+       }
+
+
+
         const news=[]
         let e
         for (const link in links){
