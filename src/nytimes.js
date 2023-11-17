@@ -5,7 +5,9 @@ const cheerio = require('cheerio');
 export default async function getNyNews(){  
    
     try {
-        const response=await fetch(baseUrl,{method:"GET"})
+        const response=await fetch(baseUrl,{method:"GET",headers:{
+          "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+        }})
         const $ = cheerio.load(await response.text())
     
         // Extract links with the specified class selector from the current page
@@ -23,7 +25,9 @@ export default async function getNyNews(){
         for (const link in links){
           
           try{
-            const response = await fetch(links[link], { method: "GET" });
+            const response = await fetch(links[link], { method: "GET",headers:{
+              "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+            } });
             const $ = cheerio.load(await response.text());
             const title = $(".article-header h1").text();
             const publication_date=$(".article-header time").attr('datetime');
