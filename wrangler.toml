@@ -11,8 +11,13 @@ database_name = "310soft"
 database_id = "72de8f6d-aac7-4097-a4c6-94ea99c44648"
 
 [[kv_namespaces]]
-binding = "cache" 
+binding = "cache"     
 id = "b0a46f83cead4ab7984f4c3dadf8f6ee"
+
+[[kv_namespaces]]
+binding = "allowed"   
+id = "dfd99f12fcb040ee991e21c70a47214d"
+
 
 [triggers]
 crons = ["*/30 * * * *"]

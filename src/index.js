@@ -3,14 +3,21 @@ import getNikkeiNews from "./nikkei";
 import getBbcNews from "./bbc";
 import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
-import { getLatest30News } from "./helper";
+import { getLatest5News } from "./helper";
 
 const router = Router()
 
-async function jwtAuth(request,env){
-	const token = request.headers.get('Authorization')
-	if (!token) return error(401, "Invalid user")
-	if(token!==env.TOKEN) return error(401, "Invalid user")
+
+
+
+async function ipAuth(request,env){
+	
+	const allowed_ipv4 = await env.allowed.get("ipv4")
+	const allowed_ipv6 = await env.allowed.get("ipv6")
+	const trueClientIp=request.headers.get("CF-Connecting-IP")
+	
+	if(trueClientIp!==allowed_ipv4&&trueClientIp!==allowed_ipv6) 
+		return error(401,"Invalid Request")
 }
 
 async function getNews(env, ctx){
@@ -23,11 +30,11 @@ async function getNews(env, ctx){
 }
 
 async function getLatestNews(env,ctx){
-	return getLatest30News(env,ctx)
+	return getLatest5News(env,ctx)
 }
 
 router
-	.all("*",jwtAuth)
+	.all("*",ipAuth)
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
 	.get("/bbc",getBbcNews)
