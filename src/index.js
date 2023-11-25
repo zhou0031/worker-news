@@ -7,9 +7,6 @@ import { getLatest5News } from "./helper";
 
 const router = Router()
 
-
-
-
 async function ipAuth(request,env){
 	
 	const allowed_ipv4 = await env.allowed.get("ipv4")
