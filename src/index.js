@@ -7,14 +7,10 @@ import { getLatest5News } from "./helper";
 
 const router = Router()
 
-async function ipAuth(request,env){
-	
-	const allowed_ipv4 = await env.allowed.get("ipv4")
-	const allowed_ipv6 = await env.allowed.get("ipv6")
-	const trueClientIp=request.headers.get("CF-Connecting-IP")
-	
-	if(trueClientIp!==allowed_ipv4&&trueClientIp!==allowed_ipv6) 
-		return error(401,"Invalid Request")
+async function auth(request,env,ctx){
+	const authResponse = await env.auth.fetch(request.clone())
+	if (authResponse.status !== 200) 
+		return error(401,"Invalid Request")	
 }
 
 async function getNews(env, ctx){
@@ -31,7 +27,7 @@ async function getLatestNews(env,ctx){
 }
 
 router
-	.all("*",ipAuth)
+	.all("*",auth)
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
 	.get("/bbc",getBbcNews)
