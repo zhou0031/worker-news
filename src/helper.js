@@ -9,9 +9,10 @@ async function saveNews(env,ctx,news){
                      env.DB
                      .prepare("INSERT INTO News (news_id,title,content,publication_date,photos,publisher) VALUES(?,?,?,?,?,?)")
                      .bind(uuidv4(),item.title,item.content.toString(),item.publication_date,JSON.stringify(item.photos),item.publisher)
-                     .all()           
-                  )
-               ctx.waitUntil(env.cache.put(item.title,JSON.stringify({timestamp:item.publication_date})))   
+                     .all(),           
+                  
+                     env.cache.put(item.title,JSON.stringify({timestamp:item.publication_date}))
+               )   
             }
          }
       return new Response(JSON.stringify({"ok":true}))
