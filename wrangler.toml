@@ -21,6 +21,3 @@ id = "dfd99f12fcb040ee991e21c70a47214d"
 [[services]]
 binding = "auth"
 service = "auth"
-
-[triggers]
-crons = ["*/30 * * * *"]

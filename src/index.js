@@ -13,14 +13,16 @@ async function auth(request,env,ctx){
 		return error(401,"Invalid Request")	
 }
 
+/*
 async function getNews(env, ctx){
 	
 	const nyNews=await getNyNews()
-	//const nikkeiNews=await getNikkeiNews()
+	const nikkeiNews=await getNikkeiNews()
 	const bbcNews=await getBbcNews()
-	const finalArray=[...nyNews,...bbcNews]
+	const finalArray=[...nyNews,...nikkeiNews]
 	ctx.waitUntil(saveNews(env,ctx,finalArray))
 }
+*/
 
 async function getLatestNews(env,ctx){
 	return getLatest5News(env,ctx)
@@ -31,6 +33,7 @@ router
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
 	.get("/bbc",getBbcNews)
+	.get("/saveNews",saveNews)
 	.get("/latestNews",getLatestNews)
 
 export default {
@@ -38,8 +41,10 @@ export default {
 	async fetch(request, env, ctx) {
 		return router.handle(request,env,ctx).then(json).catch(error)
 	},
-	
+
+	/*
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(getNews(env,ctx))
 	},
+	*/
 };
