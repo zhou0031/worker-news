@@ -33,7 +33,7 @@ router
 	.get("/nytimes",getNyNews)
 	.get("/nikkei",getNikkeiNews)
 	.get("/bbc",getBbcNews)
-	.get("/saveNews",saveNews)
+	.post("/saveNews",saveNews)
 	.get("/latestNews",getLatestNews)
 
 export default {
