@@ -17,12 +17,11 @@ async function auth(request,env,ctx){
 async function getNews(env, ctx){
 	
 	const nyNews = await getNyNews()
-	const nikkeiNews=await getNikkeiNews()
 	const bbcNews = await getBbcNews()
 	
 	ctx.waitUntil(saveNews(env,ctx,nyNews))
 	ctx.waitUntil(saveNews(env,ctx,bbcNews))
-	ctx.waitUntil(saveNews(env,ctx,nikkeiNews))
+	
 }
 
 
