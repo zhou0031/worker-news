@@ -10,7 +10,7 @@ const router = Router()
 async function auth(request,env,ctx){
 	const authResponse = await env.auth.fetch(request.clone())
 	if (authResponse.status !== 200) 
-		return error(401,"Invalid Request")	
+		return error(401,"Invalid request")	
 }
 
 
