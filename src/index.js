@@ -3,7 +3,7 @@ import getNikkeiNews from "./nikkei";
 import getBbcNews from "./bbc";
 import { saveNews } from "./helper";
 import {error,json,Router} from 'itty-router'
-import { getLatest5News } from "./helper";
+import { getLatest5News,findNews } from "./helper";
 
 const router = Router()
 
@@ -35,6 +35,7 @@ router
 	.get("/nikkei",getNikkeiNews)
 	.get("/bbc",getBbcNews)
 	.get("/latestNews",getLatestNews)
+	.get("/findNews/:id",findNews)
 
 export default {
 	

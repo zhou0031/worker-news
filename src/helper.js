@@ -23,6 +23,16 @@ async function saveNews(env,ctx,news){
   
 }
 
+async function findNews(req,env){
+   try{
+      const news=await env.DB.prepare("SELECT * FROM News WHERE news_id=?").bind(req.params.id).all()
+      return news.results[0]
+   }catch(e){
+      console.log(e)
+   }
+
+}
+
 async function getLatest5News(req,env,ctx){
    try{
       const news=await env.DB.prepare("SELECT * FROM News ORDER BY publication_date DESC LIMIT 5").all()
@@ -34,4 +44,4 @@ async function getLatest5News(req,env,ctx){
 }
 
 
-export {saveNews,getLatest5News}
+export {saveNews,getLatest5News,findNews}
