@@ -18,10 +18,13 @@ async function getNews(env, ctx){
 	
 	const nyNews = await getNyNews()
 	const bbcNews = await getBbcNews()
-	
+	let finalArray=[]
+	finalArray=[...nyNews,...bbcNews]
+	return finalArray
+	/*
 	ctx.waitUntil(saveNews(env,ctx,nyNews))
 	ctx.waitUntil(saveNews(env,ctx,bbcNews))
-	
+	*/
 }
 
 
@@ -36,15 +39,16 @@ router
 	.get("/bbc",getBbcNews)
 	.get("/latestNews",getLatestNews)
 	.get("/findNews/:id",findNews)
+	.get("/getNews",getNews)
 
 export default {
 	
 	async fetch(request, env, ctx) {
 		return router.handle(request,env,ctx).then(json).catch(error)
 	},
-	
+	/*
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(getNews(env,ctx))
 	},
-	
+	*/
 };
