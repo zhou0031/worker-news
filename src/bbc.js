@@ -29,7 +29,7 @@ export default async function getBbcNews(){
               "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
             }});
             const $ = cheerio.load(await response.text());
-            const title = $("div.bbc-1151pbn h1").text();
+            const title = $("div.bbc-1151pbn h1").text()||$("div.bbc-1151pbn strong").text();
             const publication_date=$("main time").attr('datetime')
             const content=[]
             const photos=[]    
