@@ -46,7 +46,7 @@ export default async function getNyNews(){
             /* head image */
             const headImage=$(".article-span-photo > img").attr('src')
             const headAlt=$(".article-span-photo > img").attr('alt')
-            photos.push({src:headImage,alt:headAlt})
+            headImage?photos.push({src:headImage,alt:headAlt}):""
 
             $('.article-paragraph').each((index, element) => {
               e = cheerio.load(element)  
