@@ -42,7 +42,7 @@ export default async function getBbcNews(){
               e = cheerio.load(element)
               const src=e('picture > img').attr('src')
               const alt=e('figcaption p').text()
-              photos.push({src:src,alt:alt})
+              src?photos.push({src:src,alt:alt}):''
             })
             
             news.push({title,content,publication_date,photos,publisher:3})
