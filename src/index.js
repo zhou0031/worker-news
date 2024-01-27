@@ -13,12 +13,23 @@ async function auth(request,env,ctx){
 		return error(401,"Invalid request")	
 }
 
-
 async function getNews(env, ctx){
-	
-	const nyNews = await getNyNews()
-	const bbcNews = await getBbcNews()
-	const nikkeiNews = await getNikkeiNews()
+	let nyNews,bbcNews,nikkeiNews
+	try{
+		nyNews = await getNyNews()
+	}catch{
+		nyNews=[]
+	}
+	try{
+		bbcNews = await getBbcNews()
+	}catch{
+		bbcNews=[]
+	}
+	try{
+		nikkeiNews = await getNikkeiNews()
+	}catch{
+		nikkeiNews=[]
+	}
 	let finalArray=[]
 	finalArray=[...nyNews,...bbcNews,...nikkeiNews]
 	return finalArray
@@ -27,7 +38,6 @@ async function getNews(env, ctx){
 	ctx.waitUntil(saveNews(env,ctx,bbcNews))
 	*/
 }
-
 
 async function getLatestNews(env,ctx){
 	return getLatest5News(env,ctx)
@@ -42,8 +52,7 @@ router
 	.get("/findNews/:id",findNews)
 	.get("/getNews",getNews)
 
-export default {
-	
+export default {	
 	async fetch(request, env, ctx) {
 		return router.handle(request,env,ctx).then(json).catch(error)
 	},
